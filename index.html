@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Year Card</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Pacifico&family=Playfair+Display:wght@700&display=swap');
+
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: black;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+        }
+
+        .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+        }
+
+        .content h1, .content p {
+            margin: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .content h1 {
+            font-size: 3rem;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.9), 3px 3px 15px rgba(255, 255, 255, 0.8);
+        }
+
+        .content p {
+            font-size: 1.5rem;
+            text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.7);
+        }
+
+        .button {
+            padding: 10px 20px;
+            background-color: #ff4081;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #ff1a6b;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body onclick="startCard()">
+    <!-- Background Images -->
+    <div id="background" class="background" style="background-image: url('images/page1.jpg');"></div>
+
+    <!-- Background Music -->
+    <audio id="bg-music" loop>
+        <source src="music/song.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Page 1 -->
+    <div id="page1" class="content" style="animation: fadeIn 2s;">
+        <h1 style="animation: fadeUp 2s;">Happy New Year <span>Purthimi!</span></h1>
+        <p style="animation: fadeUp 3s;">May this year be as beautiful, kind, and bright as you are. I wish you a year full of endless joy, love, and wonderful surprises ahead. 🥳</p>
+        <button class="button" onclick="nextPage(2)">Next</button>
+    </div>
+
+    <!-- Page 2 -->
+    <div id="page2" class="content" style="display: none; animation: fadeIn 2s;">
+        <h1 style="animation: fadeUp 2s;">Thank You for Being You</h1>
+        <p style="animation: fadeUp 3s;">We were just strangers in a game and now we share so much with each other—it’s been an amazing journey, and I want this journey to continue on and on. You light up my days in ways no one else can. Your kindness, strength, and calm energy inspire me so much. 💖</p>
+        <button class="button" onclick="nextPage(3)">Next</button>
+    </div>
+
+    <!-- Page 3 -->
+    <div id="page3" class="content" style="display: none; animation: fadeIn 3s;">
+        <h1 style="animation: fadeUp 2s;">Let’s Make More Memories</h1>
+        <p style="animation: fadeUp 3s;">Here’s to cherishing every moment we spend together and creating unforgettable memories this year. We do not know what the future holds, but whatever happens I hope 2025 brings you all the happiness you truly deserve. ✨</p>
+        <button class="button" onclick="nextPage(1)">Start Again</button>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        let currentPage = 1;
+
+        // Function to start the card (music and interaction)
+        function startCard() {
+            const bgMusic = document.getElementById('bg-music');
+            if (bgMusic.paused) {
+                bgMusic.play(); // Start music if it's not already playing
+            }
+            document.body.onclick = null; // Remove the onclick event after starting
+        }
+
+        // Function to navigate to the next page
+        function nextPage(page) {
+            document.getElementById(`page${currentPage}`).style.display = 'none';
+            document.getElementById(`page${page}`).style.display = 'block';
+            currentPage = page;
+
+            // Change background image
+            const bgDiv = document.getElementById('background');
+            bgDiv.style.backgroundImage = `url('images/page${page}.jpg')`;
+        }
+    </script>
+</body>
+</html>
